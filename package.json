@@ -10,6 +10,7 @@
     "dev:web": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "deploy": "vite build && node scripts/deploy-docs.mjs && git add docs && git commit -m \"deploy: update site\" && git push",
     "import-ecdict": "node scripts/import-ecdict.js",
     "build-wordlist": "node scripts/build-wordlist.js",
     "build-tatoeba-offline": "node scripts/build-tatoeba-offline.js",
