@@ -1,0 +1,52 @@
+{
+  "name": "electron-vocab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "不背单词 复刻版 (Electron + React + Edge TTS) MVP",
+  "main": "electron/main.mjs",
+  "scripts": {
+    "dev": "concurrently -n vite,electron -k \"vite\" \"wait-on tcp:5173 && cross-env DEV=1 electron .\"",
+    "dev:web": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "import-ecdict": "node scripts/import-ecdict.js",
+    "build-wordlist": "node scripts/build-wordlist.js",
+    "build-tatoeba-offline": "node scripts/build-tatoeba-offline.js",
+    "build-tatoeba": "python scripts/build-tatoeba-parquet.py",
+    "dist": "cross-env ELECTRON_BUILDER_BINARIES_MIRROR=https://registry.npmmirror.com/-/binary/electron-builder-binaries/ electron-builder --win --publish=never",
+    "pack": "cross-env ELECTRON_BUILDER_BINARIES_MIRROR=https://registry.npmmirror.com/-/binary/electron-builder-binaries/ electron-builder --win --dir",
+    "pkg-portable": "node scripts/package-portable.js"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^31.3.1",
+    "electron-builder": "^24.13.3",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.vocab.replica",
+    "productName": "不背单词复刻版",
+    "copyright": "Copyright © 2026",
+    "directories": { "output": "release" },
+    "files": ["dist/**/*", "electron/**/*"],
+    "win": { "target": "nsis" },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true },
+    "electronDist": "node_modules/electron/dist",
+    "electronVersion": "31.7.7",
+    "electronDownload": {
+      "mirror": "https://registry.npmmirror.com/-/binary/electron/"
+    }
+  }
+}
